@@ -21,17 +21,6 @@ class Word:
     def __str__(self):
         return "{} : {:d}".format(self._word, self._count)
 
-    def __eq__(self, other):
-        return self._word == other._word and self._count == other._count
-
-    def __lt__(self, other):
-        if self._count > other.count():
-            return False
-        elif self._count < other.count():
-            return True
-        else:
-            return self._word > other.word()
-
     def __gt__(self, other):
         if self._count > other.count():
             return True
