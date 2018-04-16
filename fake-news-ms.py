@@ -5,23 +5,65 @@ sys.setrecursionlimit(10000)
 
 
 class Word:
+    """Word class for fake-news-ms
+    Attributes:
+    word is the word of the instance
+    count is the count for the word.
+    Methods:
+    __init__    constructor for Word
+    word        getter for word
+    count       getter for count
+    incr        increments count
+    __str__     to string method for word.
+    __gt__      > operator for Word."""
+
     def __init__(self, word):
+        """Constructor for Word.
+        Parameters: word is the word this class represents.
+        Returns: Word
+        Pre-conditions: word is a string
+        Post-conditions: A Word is born."""
         self._word = word
         self._count = 1
 
     def word(self):
+        """Getter for word.
+        Parameters: None
+        Returns: self._word
+        Pre-conditions: self exists
+        Post-conditions: a string is returned."""
         return self._word
 
     def count(self):
+        """Getter for count.
+        Parameters: None
+        Returns: self._count
+        Pre-conditions: self exists
+        Post-conditions: an integer is returned."""
         return self._count
 
     def incr(self):
+        """Increments the words count.
+        Parameters: None
+        Returns: None
+        Pre-conditions: self exists
+        Post-conditions: count is incremented."""
         self._count += 1
 
     def __str__(self):
+        """To string for Word.
+        Parameters: None
+        Returns: Word in string form.
+        Pre-conditions: None
+        Post-conditions: a string is returned."""
         return "{} : {:d}".format(self._word, self._count)
 
     def __gt__(self, other):
+        """> operator for Word.
+        Parameters: other is a Word
+        Returns: a boolean
+        Pre-conditions: other is a Word
+        Post-conditions: returns a bool"""
         if self._count > other.count():
             return True
         elif self._count < other.count():
