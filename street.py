@@ -39,4 +39,42 @@ class Park(StreetStructure):
                 return (" " * (self._width // 2 - 2)) + self._char * 5 + (" " * (self._width // 2 - 2))
 
 
+class EmptyLot(StreetStructure):
+    def __init__(self, width, trash):
+        super().__init__(width, 0, trash)
+
+    def at_height(self, height=0):
+        if 0 < height:
+            return " " * self._width
+        else:
+            return (self._char * self._width)[:self._width + 1].replace("_", " ")
+
+class Street:
+    def __init__(self, street_string):
+        self._street = build_street_list(street_string.split())
+        self._height = max_height(self._street)
+
+
+def build_street_list(street_list, lst=[]):
+    if street_list == []:
+        return lst
+    else:
+        string = street_list.pop(0)
+        kind = string[0]
+        info = string[2:].split(",")
+        if kind == 'b':
+            lst.append(Building(int(info[0]), int(info[1]), info[2]))
+        elif kind == 'p':
+            lst.append(Park(int(info[0]), info[1]))
+        else:
+            lst.append(EmptyLot(int(info[0]), info[1]))
+        return build_street_list(street_list, lst)
+
+def max_height(lst=[], max_num=0):
+    if lst == []:
+        return max_num
+    else:
+        max_num = max(lst[0]._height, max_num)
+        return total_height(lst[1:], max_num)
+
 
