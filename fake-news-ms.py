@@ -116,7 +116,6 @@ def get_word(word, word_list):
             return elem
     return None
 
-
 def make_word_list(cleaned_list, word_list=[]):
     if cleaned_list == []:
         return word_list
@@ -157,7 +156,6 @@ def list_up_to_count(count, word_list):
         if elem.count() >= count:
             ret_list.append(elem)
     return ret_list
-
 
 def main():
     """Main function for the program.
