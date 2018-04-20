@@ -1,3 +1,9 @@
+"""
+    File: fake-news-ms.py
+    Author: Parker Gabel
+    Purpose: Merge Sort for fake-news
+"""
+
 import csv, sys
 from string import punctuation, whitespace
 

@@ -1,3 +1,8 @@
+"""
+    File: street.py
+    Author: Parker Gabel
+    Purpose: Prints a street.
+"""
 class StreetStructure:
     def __init__(self, width=0, height=0, char=""):
         self._width = width
@@ -26,8 +31,8 @@ class Park(StreetStructure):
         super().__init__(width, 0, foliage)
 
     def at_height(self, height=0):
-        if 5 < height:
-            return " " * self._char
+        if 5 <= height:
+            return " " * self._width
         elif height in range(2):
             return (" " * (self._width // 2)) + "|" + (" " *
                                                        (self._width // 2))
@@ -53,14 +58,41 @@ class EmptyLot(StreetStructure):
         if 0 < height:
             return " " * self._width
         else:
-            return (self._char * self._width)[:self._width + 1].replace(
-                "_", " ")
+            return (self._char * self._width)[:self._width].replace("_", " ")
 
 
 class Street:
     def __init__(self, street_string):
         self._street = build_street_list(street_string.split())
         self._height = max_height(self._street) + 1
+        self._width = total_width(self._street)
+
+    def structures_at_height(self, height):
+        return _structures_at_height(self._street, height)
+
+    def print_street(self):
+        print(self.frame())
+        _print_street(self._street, self._height)
+        print(self.frame())
+
+    def frame(self):
+        return "+" + "-" * self._width + "+"
+
+
+def _structures_at_height(structures, height, ret_string=""):
+    if structures == []:
+        return ret_string
+    else:
+        ret_string += structures[0].at_height(height)
+        return _structures_at_height(structures[1:], height, ret_string)
+
+
+def _print_street(structures, height):
+    if height < 0:
+        return
+    else:
+        print("|" + _structures_at_height(structures, height) + "|")
+        _print_street(structures, height - 1)
 
 
 def street_at_height(street_list, height, ret_str=""):
@@ -92,4 +124,20 @@ def max_height(lst=[], max_num=0):
         return max_num
     else:
         max_num = max(lst[0]._height, max_num)
-        return total_height(lst[1:], max_num)
+        return max_height(lst[1:], max_num)
+
+
+def total_width(structures, width=0):
+    if structures == []:
+        return width
+    else:
+        return total_width(structures[1:], width + structures[0]._width)
+
+
+def main():
+    street = input("Street: ")
+    street = Street(street)
+    street.print_street()
+
+
+main()
